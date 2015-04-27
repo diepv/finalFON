@@ -1,0 +1,12 @@
+{
+  "name": "finalFON",
+  "version": "0.0.0",
+  "description": "final project for FON",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT"
+}
