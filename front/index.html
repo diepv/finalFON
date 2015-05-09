@@ -2,30 +2,51 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link type='text/css' rel="stylesheet" href="./main.css">
+    <script type="text/javascript" src="./mustache.js"></script>
     <script type="text/javascript" src="./jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="./main.js"></script>
-    <title></title>
-    <style>
-        .highlighted{
-            color:black;
-            font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
-            font-size:16px;
-            border-bottom:1px solid lightgray;
-        }
-        .posWord{
-            color:pink;
-        }
-        .negWord{
-            color:blue;
-        }
-    </style>
+    <link href='http://fonts.googleapis.com/css?family=Quicksand:300,700' rel='stylesheet' type='text/css'>
+    <title>aloha commenting</title>
 </head>
 <body>
-<form>
-    <input id='test' type="text" val="hihihi"/>
-</form>
+<div id="pageTop">
+    <p class="headline">COMMENTS/DISCUSSION</p>
+</div>
+<div id="commentsMain">
+
+</div>
+<div id="writingArea">
+    <form id="commentBox">
+        <input id="replyMode" class="modeButtons" type=button value="REPLY"><input id="newCommentMode" class="modeButtons" type=button value="NEW COMMENT">
+        <textarea id='test' type="text" value="hello all!"/>
+    </form>
+</div>
 <div>
     <p class="highlighted"></p>
 </div>
 </body>
+<!--
+ <script id="postTemplate" type="x-tmpl-mustache">
+        {{#comments}}
+        <div class='commentContainer'>
+            <div class='scoreContainer'>
+            <p class='scoreText'>{{score}}</p>
+            </div>
+            <div class="postContainer">
+                <div class='postDetails'>
+                    <p class='userName'>{{userName}}</p>
+                    <p class='postAge'>{{postAge}}</p>
+                    <p class='replyCount'>{{replyCount}}</p>
+                </div>
+                <div class='postTextContainer'>
+                    <p class='postText'>{{{text}}}</p>
+                </div>
+                <div class='replyPosts'>
+                </div>
+            </div>
+            </div>
+        {{/comments}}
+    </script>
+ -->
 </html>

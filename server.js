@@ -22,6 +22,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/',renderer.page);
+app.get('/getComments',renderer.getPage);
 app.post('/sentiment',dataPro.getSentimental);
 
 
