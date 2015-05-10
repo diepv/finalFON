@@ -21,11 +21,11 @@
 .neg{
     color:blue;
 }
-#test{
-    width:300px;
-    height:200px;
-    color:indigo;
-}
+/*#test{*/
+    /*width:300px;*/
+    /*height:200px;*/
+    /*color:indigo;*/
+/*}*/
 label{
     font-family: Quicksand, sans-serif;
     font-size:18px;
@@ -38,11 +38,21 @@ body{
 .modeButtons{
     border:none;
     background-color: white;
-    width:50%;
+    width:48%;
     height:40px;
     font-family: Quicksand , sans-serif;
     font-size: 15px;
 }
+#newCommentMode{
+    background-color: blueviolet;
+}
+#replyMode{
+
+}
+#submitPost{
+    background-color: blueviolet;
+}
+
 #commentsMain{
     position: relative;
     display:inline-block;
@@ -61,11 +71,18 @@ body{
     vertical-align: top;
     /*background-color: darkgreen;*/
 }
-#commentBox{
+#commentForm{
     /*background-color: lime;*/
     height:400px;
     width:100%;
     right:10px;
+}
+#commentBox{
+    /*background-color: lime;*/
+    height:300px;
+    width:95%;
+    right:auto;
+    left:auto;
 }
 .threadContainer{
     /*background-color: lightslategray;*/

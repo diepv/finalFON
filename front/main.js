@@ -3,6 +3,7 @@
  */
 
 $(document).ready(function(){
+    var blueviolet = 'rgb(76, 80, 169)';
     function loadComments(){
        return $.ajax({
             url:'http://localhost:3000/getComments',
@@ -22,12 +23,10 @@ $(document).ready(function(){
     //}
     loadComments().done(function(data){
         var data = JSON.parse(data).comments;
-
         data.forEach(function(comment,commentIndex){
             console.log('comment',comment);
             createComment(comment);
         });
-
     });
 
     function createComment(data){
@@ -134,7 +133,16 @@ $(document).ready(function(){
         }
         return replyPosts;
     }
-    $("#test").on('blur', function(event){
+    $(".modeButtons").on('click', function(event){
+        if($(this).css('background-color')== blueviolet){
+            $(this).css('background-color','white');
+        }else{
+            $(this).css('background-color',blueviolet);
+        }
+
+    });
+
+    $("#submitPost").on('click', function(event){
         console.log('BLUR');
         var texty = $("#test").val();
         var dataSend = {stuff:"hhahaha",text:texty};
@@ -158,28 +166,35 @@ $(document).ready(function(){
                         replies:[]
                     };
                     var htmlString = '';
-                    var wordHTML='';
+                    //var wordHTML='';
                     var tt = texty.replace(/[\.\,]/g,' ');
                     tt.split(' ').forEach(function(word,wordIndex){
                         console.log('word',word);
                         console.log('wordindex',wordIndex);
                         console.log('check pos:', daaa.positive.indexOf(word));
+                        var textEntry = {
+                            type:'',
+                            wordHTML:word,
+                            spanClass:''
+                        };
                         if(daaa.positive.indexOf(word)>-1){
-                            console.log("found word: ",word);
-                            wordHTML += "<span class=posWord>"+word+"</span>";
+                            textEntry.type = 'html';
+                            textEntry.spanClass = 'pos';
                         }else{
-                            console.log('check neg:', daaa.negative.indexOf(word));
+
                             if(daaa.negative.indexOf(word)>-1){
-                                wordHTML += "<span class=negWord>"+word+"</span>";
+                                textEntry.type ='html';
+                                textEntry.spanClass ='neg';
                             }else{
-                                wordHTML += " "+word+" ";
+                                textEntry.type= 'string';
+                                textEntry.spanClass='neutral';
                             }
                         }
-
+                        newComment.text.push(textEntry);
                     });
-                    var cc = "<p class='highlighted'>"+wordHTML+"</p>";
-
-                    $(".highlighted").last().after(cc);
+                    createComment(newComment);
+                    //var cc = "<p class='highlighted'>"+wordHTML+"</p>";
+                    //$(".highlighted").last().after(cc);
                     //$(cc).html(wordHTML);
                 });
             }
