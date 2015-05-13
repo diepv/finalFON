@@ -245,6 +245,9 @@ $(document).ready(function(){
     $("#newCommentMode").on('click', function(event){
         $("#commentBox").html('');
         $("#previewBox").html(' ');
+        workingSpan = document.createElement('span');
+        workingSpan.setAttribute('id','workingSpan');
+        workingSpan.setAttribute('class','neutral');
     });
     $("#commentBox").on('keypress', function(event){
         //console.log("KEYPRESS", event.keyCode);
