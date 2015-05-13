@@ -7,7 +7,7 @@ $(document).ready(function(){
     var blue = "rgb(153, 204, 255)";
     function loadComments(){
        return $.ajax({
-            url:'https://lit-gorge-3288.herokuapp.com/getComments',
+            url:'https://infinite-bayou-1481.herokuapp.com/getComments',
             method:"GET",
             fail:function(){
                 console.log('joy of joys, there is an ajax failure');
@@ -367,7 +367,7 @@ $(document).ready(function(){
     function getSentimentScore(word, callback){
         var dataSend = {text:word};
         $.ajax({
-            url:"https://lit-gorge-3288.herokuapp.com/sentiment",
+            url:"https://infinite-bayou-1481.herokuapp.com/sentiment",
             data:dataSend,
             dataType:'json',
             method:"POST",

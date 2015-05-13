@@ -99,19 +99,30 @@ function getTestData(){
 //
 //};
 //
-//exports.addCommentToDb = function(pageId, comment){
-//    db.collection('pages', function(error, collection){
-//        collection.insert(comment,{w:1},function(err){
-//            if(err){
-//                console.log('err',err);
-//            }
-//        });
-//    });
-//};
+exports.addCommentToDb = function(req,res){
+    var comment = {
+        userName:'Keith Singer',
+        datePublished: new Date(),
+        replies:[],
+        score:'+13',
+        text:""
+    };
+    var text = "Here's an idea... show me ALL the posts from ALL my friends and ALL of the pages I have \"Liked\" in the order in which they were posted. NOT what you Facebook thinks I would be interested in 3 days later. FAHK FACEBOOK";
+    var replyText =
+    db.collection('pages', function(error, collection){
+        collection.insert(comment,{w:1},function(err){
+            if(err){
+                console.log('err',err);
+            }
+        });
+    });
+};
+
 
 exports.getPage = function(req, res){
     var page ={
         permalink:'',
+        id:"1",
         pageContents:{
             title:'Hello Goodbye',
             article:'123456789`1234567 123456 123456y7 1234567',
