@@ -129,6 +129,7 @@ exports.addCommentToDb = function(req,res){
     text.forEach(function(word){
         var span;
         getSentiment(word, function(result){
+                var strippedWord = word.replace(/[!?'",.].*/g,'');
             var txt = {
                 type:'html',
                 wordHTML:word,
@@ -150,16 +151,27 @@ exports.addCommentToDb = function(req,res){
                             if(result.negative.length>0){
                                 txt.spanClass= 'neg exclaim';//"<span class='neg'>"+word+"</span>";
                             }else{
-                                txt.spanClass ='exclaim';
+                                txt.spanClass ='neutral exclaim';
                             }
                         }else{
                             if(result.negative.length>0) {
                                 txt.spanClass ='neg';
                             }else{
-                                txt.spanClass ='neutral';
+                                if(word.match(/[!]+/g) !==null && word.match(/[!]+/g) !=='null') {
+                                    txt.spanClass ='neutral exclaim';
+                                }else{
+                                    txt.spanClass ='neutral';
+                                }
+
                             }
                         }
                     }
+                }
+            }else{
+                if(word.match(/[!]+/g) !==null && word.match(/[!]+/g) !=='null') {
+                    txt.spanClass ='neutral exclaim';
+                }else{
+                    txt.spanClass ='neutral';
                 }
             }
 
@@ -192,13 +204,17 @@ exports.addCommentToDb = function(req,res){
                             if(result.negative.length>0){
                                 txt.spanClass= 'neg exclaim';//"<span class='neg'>"+word+"</span>";
                             }else{
-                                txt.spanClass ='exclaim';
+                                txt.spanClass ='neutral exclaim';
                             }
                         }else{
                             if(result.negative.length>0) {
                                 txt.spanClass ='neg';
                             }else{
-                                txt.spanClass ='neutral';
+                                if(word.match(/[!]+/g) !==null && word.match(/[!]+/g) !=='null') {
+                                    txt.spanClass ='neutral exclaim';
+                                }else{
+                                    txt.spanClass ='neutral';
+                                }
                             }
                         }
                     }
@@ -257,7 +273,7 @@ exports.addPage = function(req,res){
     });
 };
 exports.getPage = function(req, res){
-    var page = {"permalink":"","id":"1","pageContents":{"title":"Hello Goodbye","article":"123456789`1234567 123456 123456y7 1234567","byLine":"janet jackson"},"comments":[{"userName":"Keith Singer","datePublished":"2015-05-13T15:29:06.236Z","replies":[{"userName":"Gary Reynolds","datePublished":"2015-05-13T15:29:06.236Z","replies":[],"score":"+2","text":[{"type":"html","wordHTML":"All","spanClass":""},{"type":"html","wordHTML":"of","spanClass":""},{"type":"html","wordHTML":"you","spanClass":""},{"type":"html","wordHTML":"that","spanClass":""},{"type":"html","wordHTML":"think","spanClass":""},{"type":"html","wordHTML":"my","spanClass":""},{"type":"html","wordHTML":"post","spanClass":""},{"type":"html","wordHTML":"is","spanClass":""},{"type":"html","wordHTML":"drama,","spanClass":""},{"type":"html","wordHTML":"look","spanClass":""},{"type":"html","wordHTML":"at","spanClass":""},{"type":"html","wordHTML":"the","spanClass":""},{"type":"html","wordHTML":"Verizon-AOL","spanClass":""},{"type":"html","wordHTML":"merger.","spanClass":""},{"type":"html","wordHTML":"It's","spanClass":""},{"type":"html","wordHTML":"all","spanClass":""},{"type":"html","wordHTML":"about","spanClass":""},{"type":"html","wordHTML":"money.","spanClass":""},{"type":"html","wordHTML":"Gullibility","spanClass":"neg"},{"type":"html","wordHTML":"and","spanClass":""},{"type":"html","wordHTML":"greed","spanClass":"neg"},{"type":"html","wordHTML":"go","spanClass":""},{"type":"html","wordHTML":"hand","spanClass":""},{"type":"html","wordHTML":"in","spanClass":""},{"type":"html","wordHTML":"hand.","spanClass":""},{"type":"html","wordHTML":"PAY","spanClass":"neg"},{"type":"html","wordHTML":"UP!!!","spanClass":""},{"type":"html","wordHTML":"Hilarious!!!","spanClass":"pos exclaim"}]}],"score":"+13","text":[{"type":"html","wordHTML":"Here's","spanClass":""},{"type":"html","wordHTML":"an","spanClass":""},{"type":"html","wordHTML":"idea...","spanClass":""},{"type":"html","wordHTML":"show","spanClass":""},{"type":"html","wordHTML":"me","spanClass":""},{"type":"html","wordHTML":"ALL","spanClass":""},{"type":"html","wordHTML":"the","spanClass":""},{"type":"html","wordHTML":"posts","spanClass":""},{"type":"html","wordHTML":"from","spanClass":""},{"type":"html","wordHTML":"ALL","spanClass":""},{"type":"html","wordHTML":"my","spanClass":""},{"type":"html","wordHTML":"friends","spanClass":""},{"type":"html","wordHTML":"and","spanClass":""},{"type":"html","wordHTML":"ALL","spanClass":""},{"type":"html","wordHTML":"of","spanClass":""},{"type":"html","wordHTML":"the","spanClass":""},{"type":"html","wordHTML":"pages","spanClass":""},{"type":"html","wordHTML":"I","spanClass":""},{"type":"html","wordHTML":"have","spanClass":""},{"type":"html","wordHTML":"\"Liked\"","spanClass":"pos"},{"type":"html","wordHTML":"in","spanClass":""},{"type":"html","wordHTML":"the","spanClass":""},{"type":"html","wordHTML":"order","spanClass":""},{"type":"html","wordHTML":"in","spanClass":""},{"type":"html","wordHTML":"which","spanClass":""},{"type":"html","wordHTML":"they","spanClass":""},{"type":"html","wordHTML":"were","spanClass":""},{"type":"html","wordHTML":"posted.","spanClass":""},{"type":"html","wordHTML":"NOT","spanClass":""},{"type":"html","wordHTML":"what","spanClass":""},{"type":"html","wordHTML":"you","spanClass":""},{"type":"html","wordHTML":"Facebook","spanClass":""},{"type":"html","wordHTML":"thinks","spanClass":""},{"type":"html","wordHTML":"I","spanClass":""},{"type":"html","wordHTML":"would","spanClass":""},{"type":"html","wordHTML":"be","spanClass":""},{"type":"html","wordHTML":"interested","spanClass":"pos"},{"type":"html","wordHTML":"in","spanClass":""},{"type":"html","wordHTML":"3","spanClass":""},{"type":"html","wordHTML":"days","spanClass":""},{"type":"html","wordHTML":"later.","spanClass":""},{"type":"html","wordHTML":"FAHK","spanClass":""},{"type":"html","wordHTML":"FACEBOOK","spanClass":""}]}]};
+    var page = {"permalink":"","id":"1","pageContents":{"title":"Hello Goodbye","article":"123456789`1234567 123456 123456y7 1234567","byLine":"janet jackson"},"comments":[{"userName":"Keith Singer","datePublished":"2015-05-13T15:45:27.486Z","replies":[{"userName":"Gary Reynolds","datePublished":"2015-05-13T15:45:27.486Z","replies":[],"score":"+2","text":[{"type":"html","wordHTML":"All","spanClass":""},{"type":"html","wordHTML":"of","spanClass":""},{"type":"html","wordHTML":"you","spanClass":""},{"type":"html","wordHTML":"that","spanClass":""},{"type":"html","wordHTML":"think","spanClass":""},{"type":"html","wordHTML":"my","spanClass":""},{"type":"html","wordHTML":"post","spanClass":""},{"type":"html","wordHTML":"is","spanClass":""},{"type":"html","wordHTML":"drama,","spanClass":""},{"type":"html","wordHTML":"look","spanClass":""},{"type":"html","wordHTML":"at","spanClass":""},{"type":"html","wordHTML":"the","spanClass":""},{"type":"html","wordHTML":"Verizon-AOL","spanClass":""},{"type":"html","wordHTML":"merger.","spanClass":""},{"type":"html","wordHTML":"It's","spanClass":""},{"type":"html","wordHTML":"all","spanClass":""},{"type":"html","wordHTML":"about","spanClass":""},{"type":"html","wordHTML":"money.","spanClass":""},{"type":"html","wordHTML":"Gullibility","spanClass":"neg"},{"type":"html","wordHTML":"and","spanClass":""},{"type":"html","wordHTML":"greed","spanClass":"neg"},{"type":"html","wordHTML":"go","spanClass":""},{"type":"html","wordHTML":"hand","spanClass":""},{"type":"html","wordHTML":"in","spanClass":""},{"type":"html","wordHTML":"hand.","spanClass":""},{"type":"html","wordHTML":"PAY","spanClass":"neg"},{"type":"html","wordHTML":"UP!!!","spanClass":""},{"type":"html","wordHTML":"Hilarious!!!","spanClass":"pos exclaim"}]}],"score":"+13","text":[{"type":"html","wordHTML":"Here's","spanClass":"neutral"},{"type":"html","wordHTML":"an","spanClass":"neutral"},{"type":"html","wordHTML":"idea...","spanClass":"neutral"},{"type":"html","wordHTML":"show","spanClass":"neutral"},{"type":"html","wordHTML":"me","spanClass":"neutral"},{"type":"html","wordHTML":"ALL","spanClass":"neutral"},{"type":"html","wordHTML":"the","spanClass":"neutral"},{"type":"html","wordHTML":"posts","spanClass":"neutral"},{"type":"html","wordHTML":"from","spanClass":"neutral"},{"type":"html","wordHTML":"ALL","spanClass":"neutral"},{"type":"html","wordHTML":"my","spanClass":"neutral"},{"type":"html","wordHTML":"friends","spanClass":"neutral"},{"type":"html","wordHTML":"and","spanClass":"neutral"},{"type":"html","wordHTML":"ALL","spanClass":"neutral"},{"type":"html","wordHTML":"of","spanClass":"neutral"},{"type":"html","wordHTML":"the","spanClass":"neutral"},{"type":"html","wordHTML":"pages","spanClass":"neutral"},{"type":"html","wordHTML":"I","spanClass":"neutral"},{"type":"html","wordHTML":"have","spanClass":"neutral"},{"type":"html","wordHTML":"\"Liked\"","spanClass":"pos"},{"type":"html","wordHTML":"in","spanClass":"neutral"},{"type":"html","wordHTML":"the","spanClass":"neutral"},{"type":"html","wordHTML":"order","spanClass":"neutral"},{"type":"html","wordHTML":"in","spanClass":"neutral"},{"type":"html","wordHTML":"which","spanClass":"neutral"},{"type":"html","wordHTML":"they","spanClass":"neutral"},{"type":"html","wordHTML":"were","spanClass":"neutral"},{"type":"html","wordHTML":"posted.","spanClass":"neutral"},{"type":"html","wordHTML":"NOT","spanClass":"neutral"},{"type":"html","wordHTML":"what","spanClass":"neutral"},{"type":"html","wordHTML":"you","spanClass":"neutral"},{"type":"html","wordHTML":"Facebook","spanClass":"neutral"},{"type":"html","wordHTML":"thinks","spanClass":"neutral"},{"type":"html","wordHTML":"I","spanClass":"neutral"},{"type":"html","wordHTML":"would","spanClass":"neutral"},{"type":"html","wordHTML":"be","spanClass":"neutral"},{"type":"html","wordHTML":"interested","spanClass":"pos"},{"type":"html","wordHTML":"in","spanClass":"neutral"},{"type":"html","wordHTML":"3","spanClass":"neutral"},{"type":"html","wordHTML":"days","spanClass":"neutral"},{"type":"html","wordHTML":"later.","spanClass":"neutral"},{"type":"html","wordHTML":"FAHK","spanClass":"neutral"},{"type":"html","wordHTML":"FACEBOOK","spanClass":"neutral"}]}]};
     //var page ={
     //    permalink:'',
     //    id:"1",
