@@ -244,17 +244,22 @@ $(document).ready(function(){
 
     $("#newCommentMode").on('click', function(event){
         $("#commentBox").html('');
-        $("#previewBox").html(' ');
+        $("#previewBox").html('');
+        $("#workingSpan").after("<span class='space'>&nbsp</span>");
+        $("#workingSpan").removeAttr('id');
         workingSpan = document.createElement('span');
         workingSpan.setAttribute('id','workingSpan');
         workingSpan.setAttribute('class','neutral');
+        $("#previewBox").append($(workingSpan));
     });
+
     $("#commentBox").on('keypress', function(event){
         //console.log("KEYPRESS", event.keyCode);
         var typedCharacter = String.fromCharCode(event.keyCode);
 
         switch(typedCharacter){
             case " ":
+                console.log("SPACE HTI");
                 //word has been finished. add to the previewBox according to what 'modes' it meets
                 var lastWord = $("#commentBox").html().match(/[A-Za-z0-9_']+[!?.'#$%^&*(){}\[\];:<>\/\\]*$/g)[0];
                 var strippedWord = lastWord.replace(/[!?'",.]+.*/g,'');
@@ -304,7 +309,7 @@ $(document).ready(function(){
 
                 break;
             default:
-                //console.log("workingspan length---",$("#workingSpan").length);
+                console.log("workingspan length---",$("#workingSpan").length);
                 if($("#workingSpan").length>0){
                     var oldText = $("#workingSpan").text();
                     //console.log('old text prev text',oldText);
