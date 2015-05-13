@@ -37,7 +37,10 @@
 .neg{
     color:cornflowerblue;
 }
-
+.exclaim{
+    letter-spacing: 3px;
+    text-transform:capitalize;
+}
 .hearts{
     background:
     radial-gradient(circle closest-side at 60% 41%, #fff 26%, rgba(187,0,51,0)  27%),

@@ -85,6 +85,7 @@ $(document).ready(function(){
         var text='';
         //console.log('data dot text',data.text);
         data.text.forEach(function(word,wordIndex){
+            console.log("LINE 88",word);
             if(word.type=='html'){
                 var span = document.createElement('span');
                 span.setAttribute('class',word.spanClass);
