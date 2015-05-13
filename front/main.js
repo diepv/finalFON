@@ -263,6 +263,8 @@ $(document).ready(function(){
                 console.log("SPACE HTI");
                 //word has been finished. add to the previewBox according to what 'modes' it meets
                 var lastWord = $("#commentBox").html().match(/[A-Za-z0-9_']+[!?.'#$%^&*(){}\[\];:<>\/\\]*$/g)[0];
+
+
                 var strippedWord = lastWord.replace(/[!?'",.]+.*/g,'');
                 //console.log("last typed word: ", lastWord);
                 getSentimentScore(lastWord, function(result){
@@ -293,6 +295,9 @@ $(document).ready(function(){
                             //else{
                             //    $("#workingSpan").attr('class','neutral');
                             //}
+                                if(lastWord.match(/[!]+/g)!==null) {
+                                    $("#workingSpan").addClass('exclaim');
+                                }
                             $("#workingSpan").after("<span class='space'>&nbsp</span>");
                             $("#workingSpan").removeAttr('id');
                             workingSpan = document.createElement('span');
