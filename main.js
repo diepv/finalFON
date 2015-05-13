@@ -1,6 +1,17 @@
 /**
  * Created by viviandiep on 4/22/15.
  */
+var mongo = require('mongodb');
+var Server = mongo.Server;
+Db = mongo.Db;
+BSON = mongo.BSONPure;
+
+var http = require('http');
+var https = require('https');
+var utf8 = require('utf8');
+//var filesys = require('fs');
+var server = new Server('localhost',27017,{auto_reconnect:true, safe: true});
+var db = new Db('finalFON', server);
 
 exports.page = function(req,res){
     res.send("HEEEEE");
@@ -87,6 +98,16 @@ exports.newComment = function(req,res){
     var stringArray = textBody.split(' ');
     //for each word in the String Array..
 
+};
+
+exports.addCommentToDb = function(pageId, comment){
+    db.collection('pages', function(error, collection){
+        collection.insert(comment,{w:1},function(err){
+            if(err){
+                console.log('err',err);
+            }
+        });
+    });
 };
 
 exports.getPage = function(req, res){
