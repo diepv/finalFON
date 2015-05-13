@@ -13,15 +13,29 @@
     font-family: Quicksand, sans-serif;
     font-size:38px;
     color:darkslategrey;
-    display:block;
+    display:inline-block;
+    vertical-align: middle;
 }
-
+.analysisButtons{
+    border:none;
+    background-image: url('./data/sound.jpg');
+    background-size: 40px 40px;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    font-family: Quicksand bold, sans-serif;
+    font-size: 20px;
+    text-shadow:0px 0px 2px black;
+    font-weight:900;
+    color:white;
+    vertical-align: middle;
+}
 /*SPAN DESIGN*/
 .pos{
-    color:magenta;
+    color:indianred;
 }
 .neg{
-    color:blue;
+    color:cornflowerblue;
 }
 
 .hearts{
@@ -42,7 +56,7 @@
     font-size:18px;
     color:rgba(0,0,0,1);
     min-width:55px;
-    min-height:24px;
+    min-height:19px;
     text-align: center;
 }
 body{
@@ -118,6 +132,7 @@ body{
     font-family: Quicksand , sans-serif;
     font-size: 14px;
 }
+
 #newCommentMode{
     background-color: rgb(102, 255, 204);
 }
@@ -190,13 +205,13 @@ body{
 .scoreContainer{
     display: inline-block;
     position: relative;
-    width:50px;
+    width:40px;
     height:30px;
     /*background-color: orange;*/
 }
 .scoreText{
-    width:50px;
-    height:20px;
+    width:40px;
+    height:24px;
     display:inline-block;
     position:relative;
     font-family: Quicksand, sans-serif;
@@ -207,6 +222,36 @@ body{
     vertical-align: top;
     /*background-color: pink;*/
 }
+.scoreControlGroup{
+    /*background-color: lightsteelblue;*/
+    position:relative;
+    display: inline-block;
+    width:40px;
+    height:20px;
+}
+.voteButtons{
+    display: block;
+    position:relative;
+    height:20px;
+    width:40px;
+    background-color: purple;
+}
+.upvoteButton{
+    background-color: indianred;
+    display: block;
+    position: relative;
+    width:40px;
+    height:10px;
+}
+.downvoteButton{
+    position: relative;
+    /*background: linear-gradient(-60deg, cornflowerblue, white),linear-gradient(-60deg, cornflowerblue, white);*/
+    background-color: cornflowerblue;
+    backgound-size:20px 10px;
+    display: block;
+    width:100%;
+    height:10px;
+}
 .postContainer{
     display:inline-block;
     position:relative;
@@ -214,6 +259,8 @@ body{
     height:auto;
     vertical-align: top;
     border:3px solid white;
+    font-family: Quicksand, sans-serif;
+    font-size:20px;
 }
 .postDetails{
     position:relative;
@@ -273,4 +320,9 @@ body{
 }
 .replyPosts{
     margin-left:30px;
+    /*background-color: rosybrown;*/
+}
+.replyPosts .commentContainer{
+    width:90%;
+    display: inline-block;
 }

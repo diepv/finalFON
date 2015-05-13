@@ -7,7 +7,7 @@ $(document).ready(function(){
     var blue = "rgb(153, 204, 255)";
     function loadComments(){
        return $.ajax({
-            url:'http://localhost:3000/getComments',
+            url:'https://lit-gorge-3288.herokuapp.com/getComments',
             method:"GET",
             fail:function(){
                 console.log('joy of joys, there is an ajax failure');
@@ -52,17 +52,32 @@ $(document).ready(function(){
         $(threadContainer).append($(commentContainer));
         $(threadContainer).append($(replies));
         $('#commentsMain').append($(threadContainer));
+        return commentContainer;
 
     }
     function populateScoreContainer(data){
         var word = data.score; //string
+        var scoreContainer = document.createElement('div');
+        scoreContainer.setAttribute('class','scoreControlGroup');
+        var voteButtons = document.createElement('div');
+        voteButtons.setAttribute('class','voteButtons');
         var scoreText = document.createElement('p');
         scoreText.setAttribute('class','scoreText');// <p class='scoreText'>{{score}}</p>
         scoreText.innerHTML = word;
+
+        var upvote = document.createElement('div');
+        upvote.setAttribute('class','upvoteButton');
+        var downvote = document.createElement('div');
+        downvote.setAttribute('class','downvoteButton');
+        voteButtons.appendChild(upvote);
+        voteButtons.appendChild(downvote);
+        scoreContainer.appendChild(scoreText);
+        scoreContainer.appendChild(voteButtons);
+
         if(parseInt(word)){
 
         }
-        return scoreText;
+        return scoreContainer;
     }
 
     function populatePostContainer(data){
@@ -98,6 +113,7 @@ $(document).ready(function(){
         var replyCount = document.createElement('p');
         replyCount.setAttribute('class','replyCount');
         replyCount.innerHTML = data.replies.length + " replies.";
+
         postDetails.appendChild(userName);
         postDetails.appendChild(postAge);
         postDetails.appendChild(replyCount);
@@ -227,7 +243,7 @@ $(document).ready(function(){
     //});
 
     $("#commentBox").on('keypress', function(event){
-        console.log("KEYPRESS", event.keyCode);
+        //console.log("KEYPRESS", event.keyCode);
         var typedCharacter = String.fromCharCode(event.keyCode);
 
         switch(typedCharacter){
@@ -239,10 +255,10 @@ $(document).ready(function(){
                 getSentimentScore(lastWord, function(result){
                     if(parseInt(result.score)!==0){
                         if(result.positive.length>0){
-                            console.log("positive word!", result.positive[0]);
+                            //console.log("positive word!", result.positive[0]);
                             $("#workingSpan").attr('class','pos');
                         }else{
-                            console.log('negative word!', result.negative[0]);
+                            //console.log('negative word!', result.negative[0]);
                             $("#workingSpan").attr('class','neg');
                         }
                         //$("#workingSpan").after("<span class='space'>&nbsp</span>");
@@ -281,10 +297,10 @@ $(document).ready(function(){
 
                 break;
             default:
-                console.log("workingspan length---",$("#workingSpan").length);
+                //console.log("workingspan length---",$("#workingSpan").length);
                 if($("#workingSpan").length>0){
                     var oldText = $("#workingSpan").text();
-                    console.log('old text prev text',oldText);
+                    //console.log('old text prev text',oldText);
                     $("#workingSpan").text(oldText+typedCharacter);
                 }else{
                     $("#previewBox").append($(workingSpan));
@@ -335,10 +351,23 @@ $(document).ready(function(){
         }
     });
 
+    $("#commentsMain").on('click',function(event){
+        console.log('upvoteclick', $(event.target));
+        if($(event.target).attr('class')=='upvoteButton'){
+            var value = $(".scoreText").val();
+            var newValue = parseInt(value)+1;
+            $(".scoreText").val(newValue);
+        }else{
+            var value = $(".scoreText").val();
+            var newValue = parseInt(value)-1;
+            $(".scoreText").val(newValue);
+        }
+
+    });
     function getSentimentScore(word, callback){
         var dataSend = {text:word};
         $.ajax({
-            url:"http://localhost:3000/sentiment",
+            url:"https://lit-gorge-3288.herokuapp.com/sentiment",
             data:dataSend,
             dataType:'json',
             method:"POST",
@@ -394,61 +423,75 @@ $(document).ready(function(){
 
     }
     $("#submitPost").on('click', function(event){
-        console.log('BLUR');
-        var texty = $("#commentBox").val();
-        var dataSend = {stuff:"hhahaha",text:texty};
-        $.ajax({
-            url:"https://lit-gorge-3288.herokuapp.com/sentiment",
-            data:dataSend,
-            dataType:'json',
-            method:"POST",
-            complete:function(obj,msg){
-                obj.fail(function(){
-                    console.log('faily');
-                });
-                obj.success(function(daaa){
-                    console.log(daaa);
-                    var newComment = {
-                        _id:234567,
-                        userName:'testUser',
-                        datePublished: new Date(),
-                        score:0,
-                        text:[],
-                        replies:[]
-                    };
-                    var htmlString = '';
-                    //var wordHTML='';
-                    var tt = texty.replace(/[\.\,]/g,' ');
-                    tt.split(' ').forEach(function(word,wordIndex){
-                        console.log('word',word);
-                        console.log('wordindex',wordIndex);
-                        console.log('check pos:', daaa.positive.indexOf(word));
-                        var textEntry = {
-                            type:'',
-                            wordHTML:word,
-                            spanClass:''
-                        };
-                        if(daaa.positive.indexOf(word)>-1){
-                            textEntry.type = 'html';
-                            textEntry.spanClass = 'pos';
-                        }else{
-
-                            if(daaa.negative.indexOf(word)>-1){
-                                textEntry.type ='html';
-                                textEntry.spanClass ='neg';
-                            }else{
-                                textEntry.type= 'string';
-                                textEntry.spanClass='neutral';
-                            }
-                        }
-                        newComment.text.push(textEntry);
-                    });
-                    createComment(newComment);
-                    //var cc = "<p class='highlighted'>"+wordHTML+"</p>";
-                    //$(".highlighted").last().after(cc);
-                    //$(cc).html(wordHTML);
-                });
-            }
-        })
-    })
+        var stuff = $("#previewBox").html();
+        console.log("submit pos stuff: ",stuff);
+        var newComment = {
+            _id:234567,
+            userName:'testUser',
+            datePublished: new Date(),
+            score:0,
+            text:[],
+            replies:[]
+        };
+        var commentContainer = createComment(newComment);
+        $(".postTextContainer").last().html(stuff);
+    });
+    //$("#submitPost").on('click', function(event){
+    //    console.log('BLUR');
+    //    var texty = $("#commentBox").val();
+    //    var dataSend = {stuff:"hhahaha",text:texty};
+    //    $.ajax({
+    //        url:"https://lit-gorge-3288.herokuapp.com/sentiment",
+    //        data:dataSend,
+    //        dataType:'json',
+    //        method:"POST",
+    //        complete:function(obj,msg){
+    //            obj.fail(function(){
+    //                console.log('faily');
+    //            });
+    //            obj.success(function(daaa){
+    //                console.log(daaa);
+    //                var newComment = {
+    //                    _id:234567,
+    //                    userName:'testUser',
+    //                    datePublished: new Date(),
+    //                    score:0,
+    //                    text:[],
+    //                    replies:[]
+    //                };
+    //                var htmlString = '';
+    //                //var wordHTML='';
+    //                var tt = texty.replace(/[\.\,]/g,' ');
+    //                tt.split(' ').forEach(function(word,wordIndex){
+    //                    console.log('word',word);
+    //                    console.log('wordindex',wordIndex);
+    //                    console.log('check pos:', daaa.positive.indexOf(word));
+    //                    var textEntry = {
+    //                        type:'',
+    //                        wordHTML:word,
+    //                        spanClass:''
+    //                    };
+    //                    if(daaa.positive.indexOf(word)>-1){
+    //                        textEntry.type = 'html';
+    //                        textEntry.spanClass = 'pos';
+    //                    }else{
+    //
+    //                        if(daaa.negative.indexOf(word)>-1){
+    //                            textEntry.type ='html';
+    //                            textEntry.spanClass ='neg';
+    //                        }else{
+    //                            textEntry.type= 'string';
+    //                            textEntry.spanClass='neutral';
+    //                        }
+    //                    }
+    //                    newComment.text.push(textEntry);
+    //                });
+    //                createComment(newComment);
+    //                //var cc = "<p class='highlighted'>"+wordHTML+"</p>";
+    //                //$(".highlighted").last().after(cc);
+    //                //$(cc).html(wordHTML);
+    //            });
+    //        }
+    //    })
+    //})
 });

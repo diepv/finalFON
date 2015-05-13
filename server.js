@@ -21,9 +21,10 @@ app.use(function(req, res, next) {
     next()
 });
 
-app.get('/',renderer.page);
+//app.get('/',renderer.page);
 app.get('/getComments',renderer.getPage);
 app.post('/sentiment',dataPro.getSentimental);
+//app.post('/getPage',dataPro.getPage);
 
 
 app.listen(process.env.PORT || 3000, function() {
