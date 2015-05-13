@@ -103,12 +103,18 @@ exports.addCommentToDb = function(req,res){
     var comment = {
         userName:'Keith Singer',
         datePublished: new Date(),
-        replies:[],
+        replies:[{
+            userName:'Gary Reynolds',
+            datePublished: new Date(),
+            replies:[],
+            score:'+2',
+            text:""
+        }],
         score:'+13',
         text:""
     };
     var text = "Here's an idea... show me ALL the posts from ALL my friends and ALL of the pages I have \"Liked\" in the order in which they were posted. NOT what you Facebook thinks I would be interested in 3 days later. FAHK FACEBOOK";
-    var replyText =
+    var replyText ="All of you that think my post is drama, look at the Verizon-AOL merger. It's all about money. Gullibility and greed go hand in hand. PAY UP!!! Hilarious!!!";
     db.collection('pages', function(error, collection){
         collection.insert(comment,{w:1},function(err){
             if(err){

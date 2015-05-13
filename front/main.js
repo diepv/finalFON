@@ -242,6 +242,10 @@ $(document).ready(function(){
     //
     //});
 
+    $("#newCommentMode").on('click', function(event){
+        $("#commentBox").html('');
+        $("#previewBox").html(' ');
+    });
     $("#commentBox").on('keypress', function(event){
         //console.log("KEYPRESS", event.keyCode);
         var typedCharacter = String.fromCharCode(event.keyCode);
